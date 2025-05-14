@@ -20,8 +20,8 @@ Ensure you have the following installed:
 
 1. **Clone the repository**:
     ```bash
-    git clone https://github.com/Akshayp2002/e-com-machine-test
-    cd sales-dock
+    git clone https://github.com/Akshayp2002/MT-ecom
+    cd MT-ecom
     ```
 2. **Install dependencies**:
     ```bash
@@ -39,7 +39,7 @@ Ensure you have the following installed:
     DB_HOST=127.0.0.1
     DB_PORT=3306
     DB_DATABASE=e-com
-    DB_USERNAME=your_username
+    DB_USERNAME=root
     DB_PASSWORD=your_password
     ```
 4. **Generate application key**:
@@ -55,7 +55,10 @@ Ensure you have the following installed:
     php artisan serve
     ```
     The application should now be running at `http://127.0.0.1:8000`
-
+7. **Run Storage link for image saving in storagae nd viewing**:
+    ```bash
+    php artisan storage:link
+    ```
 ## Default Login Credentials
 
 After running the seeders, you can log in using the default credentials:
@@ -65,9 +68,15 @@ After running the seeders, you can log in using the default credentials:
     -   Password: `password`
 -   **Manager**:
 
-    -   Email: `manager@example.com`
+    -   Email: `shop@example.com`
     -   Password: `password`
 -   **Customer1-5**:
 
     -   Email: `customer1@example.com`
+    -   Password: `password`
+
+    -   Email: `customer2@example.com`
+    -   Password: `password`
+
+    -   Email: `customer3@example.com`
     -   Password: `password`
