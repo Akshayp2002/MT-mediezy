@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Http\Controllers\Admin\ShopController;
 
 Route::get('/', function () {
     return to_route('login');
@@ -27,7 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('subcategory',SubCategoryController::class);
     Route::resource('products',ProductController::class);
     Route::resource('carts',CartController::class);
-    
+    Route::resource('shops', ShopController::class);
 });
 
 require __DIR__.'/auth.php';

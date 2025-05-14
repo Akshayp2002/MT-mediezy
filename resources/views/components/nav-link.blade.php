@@ -37,4 +37,9 @@
         Carts
     </a>
 
+     <a href="{{ route('shops.index') }}"
+        class="text-gray-700 hover:bg-gray-200 px-4 py-2 rounded {{ request()->is('shops') ? 'bg-blue-400 text-white font-bold' : '' }}">
+        Shop
+    </a>
+
 </div>

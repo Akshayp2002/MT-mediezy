@@ -24,7 +24,7 @@
                         <th class="py-3 px-6 text-left">Quantity</th>
                         <th class="py-3 px-6 text-left">Category</th>
                         <th class="py-3 px-6 text-left">Subcategory</th>
-                        {{-- <th class="py-3 px-6 text-center">Actions</th> --}}
+                        <th class="py-3 px-6 text-center">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="text-gray-700 text-sm">
@@ -44,10 +44,10 @@
                             <td class="py-3 px-6">{{ $product->quatity ?? 'N/A' }}</td>
                             <td class="py-3 px-6">{{ $product->category->name ?? 'N/A' }}</td>
                             <td class="py-3 px-6">{{ $product->subCategory->name ?? 'N/A' }}</td>
-                            {{-- <td class="py-3 px-6 text-center">
+                           <td class="py-3 px-6 text-center">
                                 <a href="{{ route('products.edit', $product->id) }}"
                                     class="bg-blue-500 text-white px-3 py-1 rounded">Edit</a>
-                                <form action="{{ route('products.destroy', $product->id) }}" method="POST"
+                                 {{-- <form action="{{ route('products.destroy', $product->id) }}" method="POST"
                                     class="inline-block" onsubmit="return confirm('Are you sure?');">
                                     @csrf
                                     @method('DELETE')

@@ -12,9 +12,9 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $admin          = Role::create(['name' => 'Admin']);
-        $productManager = Role::create(['name' => 'Product Manager']);
-        $customer       = Role::create(['name' => 'Customer']);
+        $admin    = Role::create(['name' => 'Admin']);
+        $shop     = Role::create(['name' => 'Shops']);
+        $customer = Role::create(['name' => 'Customer']);
 
         $admin->givePermissionTo([
             'view-product',
@@ -33,10 +33,12 @@ class RoleSeeder extends Seeder
             'view-sub-category',
             'create-sub-category',
             'edit-sub-category',
-            'delete-sub-category'
+            'delete-sub-category',
+            'manage-shops'
         ]);
 
-        $productManager->givePermissionTo([
+        $shop->givePermissionTo([
+            'view-product',
             'create-product',
             'edit-product',
             'delete-product',

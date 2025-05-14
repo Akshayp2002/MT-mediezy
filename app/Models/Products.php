@@ -28,4 +28,9 @@ class Products extends Model
     {
         return $this->belongsTo(SubCategory::class, 'sub_category_id');
     }
+
+    public function shops()
+    {
+        return $this->belongsToMany(Shop::class, 'product_shops');
+    }
 }

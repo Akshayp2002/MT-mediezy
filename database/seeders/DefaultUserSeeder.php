@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\shop;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -22,13 +23,19 @@ class DefaultUserSeeder extends Seeder
         ]);
         $admin->assignRole('Admin');
 
-        // Creating Product Manager 
-        $productManager = User::create([
-            'name'     => 'Manager',
-            'email'    => 'manager@example.com',
+        // Creating Shop
+        $shop = User::create([
+            'name'     => 'Shop',
+            'email'    => 'shop@example.com',
             'password' => Hash::make('password')
         ]);
-        $productManager->assignRole('Product Manager');
+        $shop->assignRole('Shops');
+
+        shop::create([
+            'user_id' => $shop->id,
+            'name'    => "Shop Test",
+            'address' => "Kozhikode",
+        ]);
 
         // Creating Customer
         $customer = User::create(
