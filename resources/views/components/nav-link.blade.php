@@ -37,10 +37,15 @@
         Carts
     </a>
     @can('view-shops')
-     <a href="{{ route('shops.index') }}"
-        class="text-gray-700 hover:bg-gray-200 px-4 py-2 rounded {{ request()->is('shops') ? 'bg-blue-400 text-white font-bold' : '' }}">
-        Shop
-    </a>
+        <a href="{{ route('shops.index') }}"
+            class="text-gray-700 hover:bg-gray-200 px-4 py-2 rounded {{ request()->is('shops') ? 'bg-blue-400 text-white font-bold' : '' }}">
+            Shop
+        </a>
     @endcan
-
+    @can('view-customers')
+        <a href="{{ route('customers.index') }}"
+            class="text-gray-700 hover:bg-gray-200 px-4 py-2 rounded {{ request()->is('customers') ? 'bg-blue-400 text-white font-bold' : '' }}">
+            Customers
+        </a>
+    @endcan
 </div>

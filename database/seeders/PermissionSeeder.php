@@ -39,7 +39,7 @@ class PermissionSeeder extends Seeder
             'store-shops',
             'edit-shops',
             'update-shops',
-
+            'view-customers',
         ];
 
         // Looping and Inserting Array's Permissions into Permission Table

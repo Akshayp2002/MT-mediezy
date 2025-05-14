@@ -40,6 +40,9 @@ class RoleSeeder extends Seeder
             'store-shops',
             'edit-shops',
             'update-shops',
+            
+            'view-customers',
+
         ]);
 
         $shop->givePermissionTo([

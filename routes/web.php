@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CartController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SubCategoryController;
@@ -28,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('products',ProductController::class);
     Route::resource('carts',CartController::class);
     Route::resource('shops', ShopController::class);
+    Route::resource('customers', CustomerController::class);
 });
 
 require __DIR__.'/auth.php';
