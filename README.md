@@ -20,8 +20,8 @@ Ensure you have the following installed:
 
 1. **Clone the repository**:
     ```bash
-    git clone https://github.com/Akshayp2002/MT-ecom
-    cd MT-ecom
+    git clone https://github.com/Akshayp2002/MT-mediezy
+    cd MT-mediezy
     ```
 2. **Install dependencies**:
     ```bash
