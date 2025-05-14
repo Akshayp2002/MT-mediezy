@@ -41,7 +41,7 @@
                             </td>
                             <td class="py-3 px-6">{{ $product->name }}</td>
                             <td class="py-3 px-6">₹{{ number_format($product->price, 2) }}</td>
-                            <td class="py-3 px-6">{{ $product->quatity ?? 'N/A' }}</td>
+                            <td class="py-3 px-6">{{ $product->quantity ?? 'N/A' }}</td>
                             <td class="py-3 px-6">{{ $product->category->name ?? 'N/A' }}</td>
                             <td class="py-3 px-6">{{ $product->subCategory->name ?? 'N/A' }}</td>
                            <td class="py-3 px-6 text-center">

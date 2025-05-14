@@ -48,7 +48,7 @@
                         <!-- Quantity -->
                         <div class="mb-5">
                             <label class="block mb-2 text-sm font-medium text-gray-600">Quantity</label>
-                            <input type="number" name="quantity" value="{{ old('quantity', $product->quatity ?? '') }}"
+                            <input type="number" name="quantity" value="{{ old('quantity', $product->quantity ?? '') }}"
                                 class="block w-full p-3 rounded bg-gray-200 border border-transparent focus:outline-none">
                         </div>
 
@@ -113,32 +113,31 @@
             </div>
         </div>
     </div>
+    @push('scripts')
     <script>
         $('#productForm').on('submit', function(e) {
             e.preventDefault();
-
-            const form = document.getElementById('productForm');
-            const formData = new FormData(form);
-            const isEdit = form.querySelector('input[name="_method"]')?.value === 'PUT';
+            const form      = document.getElementById('productForm');
+            const formData  = new FormData(form);
+            const isEdit    = form.querySelector('input[name="_method"]')?.value === 'PUT';
             const actionUrl = isEdit ?
                 "{{ route('products.update', $product->id ?? 0) }}" :
                 "{{ route('products.store') }}";
 
             $.ajax({
-                url: actionUrl,
-                method: isEdit ? 'POST' : 'POST',
-                data: formData,
+                url        : actionUrl,
+                method     : isEdit ? 'POST': 'POST',
+                data       : formData,
                 processData: false,
                 contentType: false,
-                success: function(response) {
-                    Swal.fire('Success', response.message || 'Saved successfully!', 'success');
-                    if (!isEdit) {
-                        $('#productForm')[0].reset();
-                    }
+                success    : function(response) {
+                    Swal.fire('Success', response.message, 'success').then(() => {
+                        window.location.href = '/products';
+                    });
                 },
                 error: function(xhr) {
                     if (xhr.status === 422) {
-                        const errors = xhr.responseJSON.errors;
+                        const errors   = xhr.responseJSON.errors;
                         const firstKey = Object.keys(errors)[0];
                         Swal.fire('Validation Error', errors[firstKey][0], 'error');
                     } else {
@@ -148,4 +147,5 @@
             });
         });
     </script>
+    @endpush
 @endsection

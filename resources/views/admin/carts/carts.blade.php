@@ -15,7 +15,7 @@
                     @foreach ($products as $product)
                         <div
                             class="bg-white flex flex-col rounded overflow-hidden shadow-md cursor-pointer hover:scale-[1.01] transition-all">
-                            <div class="w-full">
+                            <div class="w-full p-2">
                                 <img src="{{ asset('storage/' . $product->product->image) }}" alt="Product 1"
                                     class="w-full object-cover object-top aspect-[230/307]" />
                             </div>

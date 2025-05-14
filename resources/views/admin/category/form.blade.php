@@ -51,18 +51,17 @@
                 method: 'POST',
                 data: data,
                 success: function(response) {
-                    Swal.fire('Success', response.message, 'success');
-                    if (!isEdit) {
-                        $('#categoryForm')[0].reset();
-                    }
+                    Swal.fire('Success', response.message, 'success').then(() => {
+                        window.location.href = '/category';
+                    });
                 },
                 error: function(xhr) {
                     if (xhr.status === 422) {
-                        alert(xhr.responseJSON.errors.name[0]);
-                    } else if (xhr.status === 403) {
-                        alert('You are not authorized.');
+                        const errors   = xhr.responseJSON.errors;
+                        const firstKey = Object.keys(errors)[0];
+                        Swal.fire('Validation Error', errors[firstKey][0], 'error');
                     } else {
-                        alert('An error occurred.');
+                        Swal.fire('Error', 'An unexpected error occurred.', 'error');
                     }
                 }
             });

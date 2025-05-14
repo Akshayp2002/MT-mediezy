@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Shop;
+use App\Models\shop;
 use App\Models\User;
 use Gate;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +14,7 @@ class ShopController extends Controller
     public function index()
     {
         abort_if(Gate::denies('view-shops'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $shops = Shop::with('owner')->latest()->get();
+        $shops = shop::with('owner')->latest()->get();
         return view('admin.shops.index', compact('shops'));
     }
 
@@ -49,7 +49,7 @@ class ShopController extends Controller
         $user->assignRole('shops');
 
         // Create shop
-        Shop::create([
+        shop::create([
             'user_id' => $user->id,
             'name'    => $request->name,
             'address' => $request->address,
@@ -64,7 +64,7 @@ class ShopController extends Controller
         return view('admin.shops.form', compact('shop'));
     }
 
-    public function update(Request $request, Shop $shop)
+    public function update(Request $request, shop $shop)
     {
         abort_if(Gate::denies('update-shops'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $request->validate([
