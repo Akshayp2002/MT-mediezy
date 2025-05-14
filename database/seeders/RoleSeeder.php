@@ -23,7 +23,6 @@ class RoleSeeder extends Seeder
             'delete-product',
             'view-product-customer',
 
-
             'view-category',
             'create-category',
             'edit-category',
@@ -34,7 +33,13 @@ class RoleSeeder extends Seeder
             'create-sub-category',
             'edit-sub-category',
             'delete-sub-category',
-            'manage-shops'
+            'manage-shops',
+
+            'view-shops',
+            'create-shops',
+            'store-shops',
+            'edit-shops',
+            'update-shops',
         ]);
 
         $shop->givePermissionTo([

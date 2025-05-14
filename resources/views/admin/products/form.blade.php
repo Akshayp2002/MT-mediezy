@@ -5,9 +5,6 @@
         <div class="max-w-lg w-full mx-auto">
             <h1 class="text-4xl text-center mb-12 font-thin">Create Product</h1>
 
-            <!-- Alert Messages -->
-            <x-alert-messages />
-
             <div class="bg-white rounded-lg overflow-hidden shadow-2xl">
                 <div class="p-8">
                     <!-- Product Form -->
@@ -122,8 +119,6 @@
 
             const form = document.getElementById('productForm');
             const formData = new FormData(form);
-
-            // Check if method override exists
             const isEdit = form.querySelector('input[name="_method"]')?.value === 'PUT';
             const actionUrl = isEdit ?
                 "{{ route('products.update', $product->id ?? 0) }}" :

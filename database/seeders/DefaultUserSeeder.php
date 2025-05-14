@@ -31,11 +31,18 @@ class DefaultUserSeeder extends Seeder
         ]);
         $shop->assignRole('Shops');
 
-        shop::create([
-            'user_id' => $shop->id,
-            'name'    => "Shop Test",
-            'address' => "Kozhikode",
-        ]);
+        shop::create(
+            [
+                'user_id' => $shop->id,
+                'name'    => "Shop Test",
+                'address' => "Kozhikode",
+            ],
+            [
+                'user_id' => $admin->id,
+                'name'    => "Shop Admin",
+                'address' => "Kerala",
+            ]
+        );
 
         // Creating Customer
         $customer = User::create(

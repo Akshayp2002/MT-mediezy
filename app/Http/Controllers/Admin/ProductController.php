@@ -24,9 +24,10 @@ class ProductController extends Controller
     public function create()
     {
         abort_if(Gate::denies('create-product'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $categories = Category::all();
+        $categories    = Category::all();
         $subCategories = SubCategory::all();
-        return view('admin.products.form', compact('categories', 'subCategories'));
+        $shops         = Gate::allows('manage-shops') ? shop::all() : [];
+        return view('admin.products.form', compact('categories', 'subCategories','shops'));
     }
 
     public function store(Request $request)
@@ -35,36 +36,31 @@ class ProductController extends Controller
 
         $isAdmin = Gate::allows('manage-shops');
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric',
-            'quantity' => 'nullable|integer',
-            'size' => 'nullable|string|max:255',
-            'color' => 'nullable|string|max:255',
-            'category_id' => 'required|exists:categories,id',
+            'name'            => 'required|string|max:255',
+            'price'           => 'required|numeric',
+            'quantity'        => 'nullable|integer',
+            'size'            => 'nullable|string|max:255',
+            'color'           => 'nullable|string|max:255',
+            'category_id'     => 'required|exists:categories,id',
             'sub_category_id' => 'required|exists:sub_categories,id',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'shop_id' => $isAdmin ? 'required|exists:shops,id' : '',
+            'image'           => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'shop_id'         => $isAdmin ? 'required|exists:shops,id' : '',
         ]);
-
         $product = Products::create($validated);
 
         if ($request->hasFile('image')) {
             $product->image = $request->file('image')->store('products', 'public');
         }
-
-        // Determine shop ID
-        $shop = $isAdmin ? $request->shop_id : auth()->user()->shop()->first(); // Corrected to retrieve the Shop instance
+        $product->save();
+        $shop = $isAdmin ? $request->shop_id : auth()->user()->shop()->first()->id;
         if (!$shop) {
             return response()->json(['message' => 'Shop ID is missing or user has no shop.'], 422);
         }
 
-        $shopId = $shop->id; // Now accessing the ID from the Shop instance
-
-        // Create product-shop relationship
         ProductShop::create([
             'product_id' => $product->id,
-            'shop_id' => $shopId,
-            'status' => 'active',
+            'shop_id'    => $shop,
+            'status'     => 'active',
         ]);
 
         return response()->json(['message' => 'Product created successfully.']);
@@ -73,9 +69,9 @@ class ProductController extends Controller
     public function edit(Products $product)
     {
         abort_if(Gate::denies('edit-product'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $categories = Category::all();
+        $categories    = Category::all();
         $subCategories = SubCategory::all();
-        $shops = Gate::allows('manage-shops') ? shop::all() : [];
+        $shops         = Gate::allows('manage-shops') ? shop::all() : [];
         return view('admin.products.form', compact('categories', 'subCategories', 'product', 'shops'));
     }
     public function update(Request $request, Products $product)
@@ -84,23 +80,23 @@ class ProductController extends Controller
 
         $isAdmin = Gate::allows('manage-shops');
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric',
-            'quantity' => 'nullable|integer',
-            'size' => 'nullable|string|max:255',
-            'color' => 'nullable|string|max:255',
-            'category_id' => 'required|exists:categories,id',
+            'name'            => 'required|string|max:255',
+            'price'           => 'required|numeric',
+            'quantity'        => 'nullable|integer',
+            'size'            => 'nullable|string|max:255',
+            'color'           => 'nullable|string|max:255',
+            'category_id'     => 'required|exists:categories,id',
             'sub_category_id' => 'required|exists:sub_categories,id',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'shop_id' => $isAdmin ? 'required|exists:shops,id' : '',
+            'image'           => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'shop_id'         => $isAdmin ? 'required|exists:shops,id' : '',
         ]);
 
         $product->update($validated);
         if ($request->hasFile('image')) {
             $product->image = $request->file('image')->store('products', 'public');
         }
-
-        $shopId = $isAdmin ? $request->shop_id : auth()->user()->shop()->first()->id; // Use first() to retrieve the shop
+        $product->save();
+        $shopId = $isAdmin ? $request->shop_id : auth()->user()->shop()->first()->id;
 
         if (!$shopId) {
             return response()->json(['message' => 'Shop ID is missing.'], 422);
@@ -108,7 +104,8 @@ class ProductController extends Controller
 
         ProductShop::updateOrCreate(
             ['product_id' => $product->id],
-            ['shop_id' => $shopId, 'status' => 'active']
+            [ 'shop_id' => $shopId, 
+              'status' => 'active']
         );
 
         return response()->json(['message' => 'Product updated successfully.']);

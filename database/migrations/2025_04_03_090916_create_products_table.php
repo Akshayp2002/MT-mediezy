@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->decimal('price', 15, 2);
-            $table->bigInteger('quatity')->nullable();
+            $table->bigInteger('quantity')->nullable();
             $table->string('image')->nullable();
             $table->string('size')->nullable();
             $table->string('color')->nullable();

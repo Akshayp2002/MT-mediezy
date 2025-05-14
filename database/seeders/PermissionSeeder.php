@@ -32,8 +32,13 @@ class PermissionSeeder extends Seeder
             'edit-sub-category',
             'delete-sub-category',
 
-            'manage-shops'
+            'manage-shops',
 
+            'view-shops',
+            'create-shops',
+            'store-shops',
+            'edit-shops',
+            'update-shops',
 
         ];
 

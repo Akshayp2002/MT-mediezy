@@ -9,7 +9,7 @@ class Products extends Model
     protected $fillable = [
         'name',
         'price',
-        'quatity',
+        'quantity',
         'image',
         'size',
         'color',
@@ -32,5 +32,9 @@ class Products extends Model
     public function shops()
     {
         return $this->belongsToMany(Shop::class, 'product_shops');
+    }
+    public function productShops()
+    {
+        return $this->hasMany(ProductShop::class);
     }
 }
